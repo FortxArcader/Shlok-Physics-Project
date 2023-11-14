@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+
+  <title>Circuit Builder</title>
+
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="canonical" href="https://spinningnumbers.org/circuit-sandbox/" />
+  <link rel="stylesheet" href="sandbox.css" />
+
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 2em 0;
+    }
+
+    .intro-content,
+    .header-content {
+      animation: fadeInUp 1s ease;
+    }
+
+    .intro-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .circuit-interface {
+      padding: 20px;
+    }
+
+    .schematic {
+      width: 100%;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+
+    .note-space {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .save-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .save-button:hover {
+      background-color: #45a049;
+    }
+
+    .contact-me {
+      border-top: 1px solid #ccc;
+      padding-top: 20px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 1em 0;
+    }
+
+    .footer-content {
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+
+  <script type="text/javascript" src="js/hammer.min.js"></script>
+  <script src="https://kit.fontawesome.com/9defb49fb8.js"></script>
+  <script type="text/javascript" src="js/download.js"></script>
+  <script type="text/javascript" src="js/language.js"></script>
+  <script type="text/javascript" src="js/fet_vsp.js"></script>
+  <script type="text/javascript" src="js/fet_vsparms.js"></script>
+  <script type="text/javascript" src="js/cktsimvsp_sn.js"></script>
+  <script type="text/javascript" src="js/schematic.js"></script>
+</head>
+
+<body>
+  <header>
+    <div class="intro-content">
+      <h1>Welcome to Circuit Builder</h1>
+      <p>Explore and design electric circuits interactively</p>
+      <p>Created by Shlok Bhardwaj - Class XII Science A</p>
+      <!-- Add your school logo or any other relevant information here -->
+      <!-- Example: <img src="school_logo.png" alt="School Logo"> -->
+    </div>
+  </header>
+
+  <div class="circuit-interface">
+    <main>
+      <input type="hidden" class="schematic" height="460" width="800" />
+
+      <div class="note-space">
+        <!-- Your note-taking space goes here -->
+        <textarea id="noteArea" rows="4" cols="50" placeholder="Write your notes here..."></textarea>
+        <br>
+        <button class="save-button" onclick="saveNotes()">Save Notes</button>
+      </div>
+
+      <p>
+        Circuit Sandbox simulator &nbsp; &nbsp; &nbsp; &nbsp;
+        <a href="https://spinningnumbers.org">spinningnumbers.org</a> &#8275;
+        <a href="https://spinningnumbers.org/a/circuit-sandbox.html">help</a> &#8275;
+
+      </p>
+
+      <!-- GPT Integration Placeholder -->
+      <div id="gpt-integration">
+        <!-- Your GPT integration code goes here -->
+        <input type="text" id="gpt-search" placeholder="Ask me anything...">
+        <button onclick="askGPT()">Search</button>
+      </div>
+    </main>
+
+    <div class="contact-me">
+      <h2>Contact Me</h2>
+      <!-- Your contact information goes here -->
+      <p>Email: shlokbhardwaj1@gmail.com</p>
+      <p>Phone: +123 456 7890</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <p><em><small>© 2016-2021 Willy McAllister, © 2012 EdX, © 2011, 2018 MIT EECS</small></em></p>
+    </div>
+  </footer>
+
+  <script>
+    function saveNotes() {
+      var noteArea = document.getElementById('noteArea');
+      // Save the notes using your preferred method (localStorage, server, etc.)
+      // Example using localStorage:
+      localStorage.setItem('notes', noteArea.value);
+    }
+
+    // Example GPT Integration (replace with actual integration code)
+    function askGPT() {
+      var gptSearch = document.getElementById('gpt-search').value;
+      alert("GPT Response: " + gptSearch); // Replace with actual GPT interaction
+    }
+  </script>
+</body>
+
+</html>
