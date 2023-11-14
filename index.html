@@ -171,6 +171,58 @@
       alert("GPT Response: " + gptSearch); // Replace with actual GPT interaction
     }
   </script>
+  <script>
+    // Function to save notes as a text file
+    function saveNotes() {
+      var noteArea = document.getElementById('noteArea').value;
+
+      // Create a Blob with the notes content
+      var blob = new Blob([noteArea], { type: 'text/plain' });
+
+      // Create a link element
+      var link = document.createElement('a');
+
+      // Set the download attribute with a filename
+      link.download = 'notes.txt';
+
+      // Create a URL for the Blob and set it as the href attribute
+      link.href = window.URL.createObjectURL(blob);
+
+      // Append the link to the body
+      document.body.appendChild(link);
+
+      // Trigger a click on the link to start the download
+      link.click();
+
+      // Remove the link from the body
+      document.body.removeChild(link);
+    }
+
+    // Example GPT Integration (replace with actual integration code)
+    function askGPT() {
+      var gptSearch = document.getElementById('gpt-search').value;
+
+      // Perform the GPT interaction using the API key
+      // Example: You need to replace 'YOUR_API_KEY' with your actual GPT-3 API key
+      fetch('https://api.openai.com/v1/engines/davinci/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer YOUR_API_KEY', // Replace with your actual API key
+        },
+        body: JSON.stringify({
+          prompt: gptSearch,
+          max_tokens: 50, // Adjust the max_tokens as needed
+        }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Handle the GPT response
+          alert("GPT Response: " + data.choices[0].text);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+  </script>
 </body>
 
 </html>
