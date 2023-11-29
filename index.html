@@ -16,7 +16,11 @@
       font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
+      overflow: hidden;
+      overflow-y: scroll;
+      /* Add this line to enable vertical scrolling */
     }
+
 
     header {
       background-color: #333;
@@ -37,6 +41,7 @@
 
     .circuit-interface {
       padding: 20px;
+      animation: fadeIn 2s ease;
     }
 
     .schematic {
@@ -51,16 +56,19 @@
       margin-bottom: 20px;
     }
 
-    .save-button {
+    .save-button,
+    .screenshot-button {
       background-color: #4CAF50;
       color: white;
       padding: 10px 15px;
       border: none;
       cursor: pointer;
       transition: background-color 0.3s;
+      margin-right: 10px;
     }
 
-    .save-button:hover {
+    .save-button:hover,
+    .screenshot-button:hover {
       background-color: #45a049;
     }
 
@@ -94,6 +102,16 @@
         transform: translateY(0);
       }
     }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
   </style>
 
   <script type="text/javascript" src="js/hammer.min.js"></script>
@@ -119,6 +137,13 @@
 
   <div class="circuit-interface">
     <main>
+      <div class="intro-content">
+        <h2>Introduction</h2>
+        <p>This interactive Circuit Builder allows you to explore and design electric circuits seamlessly. Created by
+          Shlok Bhardwaj, this platform provides a hands-on experience in understanding and experimenting with circuit
+          components.</p>
+      </div>
+
       <input type="hidden" class="schematic" height="460" width="800" />
 
       <div class="note-space">
@@ -126,21 +151,14 @@
         <textarea id="noteArea" rows="4" cols="50" placeholder="Write your notes here..."></textarea>
         <br>
         <button class="save-button" onclick="saveNotes()">Save Notes</button>
+        <button class="screenshot-button" onclick="takeScreenshot()">Take Screenshot</button>
       </div>
 
       <p>
-        Circuit Sandbox simulator &nbsp; &nbsp; &nbsp; &nbsp;
-        <a href="https://spinningnumbers.org">spinningnumbers.org</a> &#8275;
-        <a href="https://spinningnumbers.org/a/circuit-sandbox.html">help</a> &#8275;
-
+        ElectraVista - Circuit Builder &nbsp; &nbsp; &nbsp; &nbsp;
+        <a href="https://spinningnumbers.org">Parent Site</a> &#8275;
+        <a href="https://github.com/FortxArcader/Shlok-Physics-Project.git">Source Code</a> &#8275;
       </p>
-
-      <!-- GPT Integration Placeholder -->
-      <div id="gpt-integration">
-        <!-- Your GPT integration code goes here -->
-        <input type="text" id="gpt-search" placeholder="Ask me anything...">
-        <button onclick="askGPT()">Search</button>
-      </div>
     </main>
 
     <div class="contact-me">
@@ -165,62 +183,9 @@
       localStorage.setItem('notes', noteArea.value);
     }
 
-    // Example GPT Integration (replace with actual integration code)
-    function askGPT() {
-      var gptSearch = document.getElementById('gpt-search').value;
-      alert("GPT Response: " + gptSearch); // Replace with actual GPT interaction
-    }
-  </script>
-  <script>
-    // Function to save notes as a text file
-    function saveNotes() {
-      var noteArea = document.getElementById('noteArea').value;
-
-      // Create a Blob with the notes content
-      var blob = new Blob([noteArea], { type: 'text/plain' });
-
-      // Create a link element
-      var link = document.createElement('a');
-
-      // Set the download attribute with a filename
-      link.download = 'notes.txt';
-
-      // Create a URL for the Blob and set it as the href attribute
-      link.href = window.URL.createObjectURL(blob);
-
-      // Append the link to the body
-      document.body.appendChild(link);
-
-      // Trigger a click on the link to start the download
-      link.click();
-
-      // Remove the link from the body
-      document.body.removeChild(link);
-    }
-
-    // Example GPT Integration (replace with actual integration code)
-    function askGPT() {
-      var gptSearch = document.getElementById('gpt-search').value;
-
-      // Perform the GPT interaction using the API key
-      // Example: You need to replace 'YOUR_API_KEY' with your actual GPT-3 API key
-      fetch('https://api.openai.com/v1/engines/davinci/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer YOUR_API_KEY', // Replace with your actual API key
-        },
-        body: JSON.stringify({
-          prompt: gptSearch,
-          max_tokens: 50, // Adjust the max_tokens as needed
-        }),
-      })
-        .then(response => response.json())
-        .then(data => {
-          // Handle the GPT response
-          alert("GPT Response: " + data.choices[0].text);
-        })
-        .catch(error => console.error('Error:', error));
+    function takeScreenshot() {
+      // Logic to capture and save a screenshot
+      alert("Screenshot taken!");
     }
   </script>
 </body>
