@@ -7,7 +7,7 @@
 
   <title>Electro Vista</title>
 
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="icon1.png" type="image/x-icon" />
   <link rel="canonical" href="https://spinningnumbers.org/circuit-sandbox/" />
   <link rel="stylesheet" href="sandbox.css" />
 
@@ -92,6 +92,8 @@
       border: 1px solid #ccc;
       margin-bottom: 20px;
       background-color: #fff;
+      touch-action: none;
+      /* Disable touch scrolling on canvas */
     }
 
     canvas {
@@ -203,7 +205,14 @@
     canvas.addEventListener('mousemove', draw);
     canvas.addEventListener('mouseup', stopDrawing);
 
+    // Add touch events
+    canvas.addEventListener('touchstart', startDrawing);
+    canvas.addEventListener('touchmove', draw);
+    canvas.addEventListener('touchend', stopDrawing);
+
     function startDrawing(e) {
+      e.preventDefault(); // Prevent default touch events
+
       if (drawingEnabled) {
         isDrawing = true;
         draw(e);
@@ -211,6 +220,8 @@
     }
 
     function draw(e) {
+      e.preventDefault(); // Prevent default touch events
+
       if (!isDrawing) return;
 
       context.lineWidth = penSize;
@@ -227,10 +238,13 @@
         context.strokeStyle = colorPicker.value;
       }
 
-      context.lineTo(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top);
+      // For touch events, use e.touches[0] to get the touch position
+      context.lineTo(e.touches ? e.touches[0].clientX - canvas.getBoundingClientRect().left : e.clientX - canvas.getBoundingClientRect().left,
+        e.touches ? e.touches[0].clientY - canvas.getBoundingClientRect().top : e.clientY - canvas.getBoundingClientRect().top);
       context.stroke();
       context.beginPath();
-      context.moveTo(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top);
+      context.moveTo(e.touches ? e.touches[0].clientX - canvas.getBoundingClientRect().left : e.clientX - canvas.getBoundingClientRect().left,
+        e.touches ? e.touches[0].clientY - canvas.getBoundingClientRect().top : e.clientY - canvas.getBoundingClientRect().top);
     }
 
     function stopDrawing() {
